@@ -1,0 +1,120 @@
+jQuery(document).foundation();
+/* 
+These functions make sure WordPress 
+and Foundation play nice together.
+*/
+
+jQuery(document).ready(function() {
+    
+    // Remove empty P tags created by WP inside of Accordion and Orbit
+    jQuery('.accordion p:empty, .orbit p:empty').remove();
+    
+	 // Makes sure last grid item floats left
+	jQuery( '.archive-grid .columns' ).last().addClass( 'end' );
+	
+	// Adds Flex Video to YouTube and Vimeo Embeds
+	jQuery( 'iframe[src*="youtube.com"], iframe[src*="vimeo.com"]' ).wrap("<div class='flex-video'/>");
+
+});
+
+ // Sticky navigation
+ 
+jQuery(document).ready(function() {
+
+function checkWindowWidth() {
+        return jQuery(window).width();
+}
+
+function stickyMenu() {
+        var windowTop = jQuery(window).scrollTop(),
+            windowWidth = checkWindowWidth(),
+            header = jQuery('#header'),
+            navContainer = jQuery('#main-nav-container'),
+            navSocial = jQuery('.top-share-wrapper'),
+            navDist = navContainer.offset().top,
+            headerHeight = header.height();
+            
+        if (windowTop >= navDist && windowTop > headerHeight&& windowWidth ) {
+            navContainer.addClass('fixed');
+            navSocial.addClass('hide');
+        } else {
+            navContainer.removeClass('fixed');
+            navSocial.removeClass('hide');
+        }
+    }
+
+jQuery(window).on('scroll resize', stickyMenu);
+
+});
+
+
+
+
+// Search bar
+
+jQuery(document).ready(function() {
+
+
+jQuery(".icon").click(function() {
+    var icon = jQuery(this),
+            input = icon.parent().find("#search"),
+            search = icon.parent().find(".search"),
+            is_submit_clicked = false;
+    
+    // Animate the input field
+    input.animate({
+        "width": "165px",
+        "padding": "10px",
+        "opacity": 1
+    }, 300, function() {
+        input.focus();
+    });
+    
+    search.mousedown(function() {
+        is_submit_clicked = true;
+    });
+    
+    // Now, we need to hide the icon too
+    icon.fadeOut(300);
+    
+    // Looks great, but what about hiding the input when it loses focus and doesnt contain any value? Lets do that too
+    input.blur(function() {
+        if(!input.val() && !is_submit_clicked) {
+            input.animate({
+                "width": "0",
+                "padding": "0",
+                "opacity": 0
+            }, 200);
+            
+            // Get the icon back
+            icon.fadeIn(200);
+        };
+    });
+});
+
+
+
+});
+
+// Show more / show less toggle
+
+jQuery(document).ready(function () {
+
+    // Show more / show less toggle
+    jQuery(document).on('click', '.fhx-showmore-toggle', function (e) {
+        e.preventDefault();
+
+        var $link    = jQuery(this);
+        var $wrapper = $link.closest('.fhx-showmore-wrapper');
+        var $content = $wrapper.find('.fhx-showmore-content');
+
+        $content.slideToggle(200, function () {
+            var isVisible = $content.is(':visible');
+            var moreText  = $link.data('more');
+            var lessText  = $link.data('less');
+
+            $link.text(isVisible ? lessText : moreText);
+        });
+    });
+
+});
