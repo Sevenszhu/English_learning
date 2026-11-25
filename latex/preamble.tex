@@ -6,9 +6,9 @@
 \usepackage{geometry}
 \geometry{
   a4paper,
-  left=62pt, right=62pt,
-  top=60pt, bottom=55pt,
-  headheight=14pt, headsep=9pt, footskip=24pt
+  left=76pt, right=76pt,
+  top=72pt, bottom=62pt,
+  headheight=15pt, headsep=10pt, footskip=28pt
 }
 
 \usepackage[table]{xcolor}
@@ -37,8 +37,8 @@
   pdfstartview=FitH
 }
 
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{7pt plus 1pt minus 0.5pt}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{8pt plus 1pt minus 0.5pt}
 \widowpenalty=10000
 \clubpenalty=10000
 \displaywidowpenalty=10000
@@ -50,7 +50,7 @@
 \hfuzz=0.5pt
 \vfuzz=2pt
 
-\AtBeginDocument{\fontsize{12}{16.5}\selectfont}
+\AtBeginDocument{\fontsize{12}{18}\selectfont}
 
 \newcommand{\collectionname}{ENGLISH WRITING COLLECTION}
 \newcommand{\articlelabel}{}
@@ -59,24 +59,24 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\fontsize{8.5}{10}\selectfont\color{headgrey}\articlelabel}
-\fancyhead[R]{\fontsize{8.5}{10}\selectfont\color{headgrey}\collectionname}
-\fancyfoot[C]{\fontsize{10}{12}\selectfont\thepage}
+\fancyhead[L]{\fontsize{8.5}{10.5}\selectfont\color{headgrey}\articlelabel}
+\fancyhead[R]{\fontsize{8.5}{10.5}\selectfont\color{headgrey}\collectionname}
+\fancyfoot[C]{\fontsize{10}{12.5}\selectfont\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\headrule}{%
   \hbox to\headwidth{\color{rule}\leaders\hrule height \headrulewidth\hfill}}
 
 \newenvironment{rquote}
-  {\par\vspace{2pt}%
-   \begin{adjustwidth}{18pt}{18pt}%
+  {\par\vspace{3pt}%
+   \begin{adjustwidth}{22pt}{22pt}%
    \setlength{\parindent}{0pt}%
    \setlength{\parskip}{6pt}%
    \ignorespaces}
-  {\par\end{adjustwidth}\par\vspace{4pt}}
+  {\par\end{adjustwidth}\par\vspace{6pt}}
 
 \newenvironment{rverse}
-  {\par\vspace{3pt}%
-   \begin{adjustwidth}{22pt}{0pt}%
+  {\par\vspace{4pt}%
+   \begin{adjustwidth}{24pt}{0pt}%
    \itshape
    \setlength{\parindent}{0pt}%
    \setlength{\parskip}{0pt}%
@@ -84,19 +84,19 @@
    \raggedright
    \def\\{\unskip\newline\ignorespaces}%
    \ignorespaces}
-  {\par\end{adjustwidth}\par\vspace{8pt}}
+  {\par\end{adjustwidth}\par\vspace{10pt}}
 
 \newenvironment{readnote}
-  {\par\vspace{1pt}\begingroup
-   \fontsize{10.5}{13.6}\selectfont
+  {\par\vspace{2pt}\begingroup
+   \fontsize{10.5}{14.4}\selectfont
    \setlength{\parindent}{0pt}%
-   \setlength{\parskip}{3pt}%
+   \setlength{\parskip}{4pt}%
    \ignorespaces}
-  {\par\endgroup\vspace{1pt}}
+  {\par\endgroup\vspace{2pt}}
 
 \newcommand{\readingheading}[3]{%
   \par\needspace{4\baselineskip}%
   \pdfbookmark[1]{#2}{#3}%
-  {\fontsize{13.5}{18}\selectfont\bfseries #1\par}%
-  \vspace{8pt}%
+  \noindent{\fontsize{14}{19.5}\selectfont\bfseries #1\par}%
+  \vspace{10pt}%
 }

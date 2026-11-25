@@ -3,28 +3,28 @@ This is a repository for learning English writing through GPT advice. The main m
 
 ## 统一排版 PDF
 
-[下载十篇合订本（151 页，含可点击目录和书签）](output/pdf/English_Writing_Collection.pdf)
+[下载十篇合订本（184 页，含可点击目录和书签）](output/pdf/English_Writing_Collection.pdf)
 
-统一使用 XeLaTeX 排印，采用 A4、12 磅 Liberation Serif 衬线字体、16.5 磅行距及约 22 毫米左右页边距。正文可搜索、可复制，字体嵌入 PDF。标题与正文接排，各篇另起一页，不设置独立封面或奇偶页补白；十篇单篇与合订本共用同一套 LaTeX 模板。
+统一使用 XeLaTeX 排印，采用 A4、12 磅 Liberation Serif 衬线字体、18 磅行距、首行缩进 1.2 em、段间 8 磅及约 27 毫米页边距。正文可搜索、可复制，字体嵌入 PDF。标题与正文接排，各篇另起一页，不设置独立封面或奇偶页补白；十篇单篇与合订本共用同一套 LaTeX 模板。
 
 | 顺序 | 作者 | 单篇 PDF | 页数 |
 | --- | --- | --- | ---: |
-| 1 | George Orwell | [Politics and the English Language](output/pdf/01_Politics_and_the_English_Language.pdf) | 9 |
-| 2 | John Maynard Keynes | [Economic Possibilities for Our Grandchildren](output/pdf/02_Economic_Possibilities_for_Our_Grandchildren.pdf) | 7 |
-| 3 | Thomas Paine | [Agrarian Justice](output/pdf/03_Agrarian_Justice.pdf) | 12 |
-| 4 | Jonathan Swift | [A Modest Proposal](output/pdf/04_A_Modest_Proposal.pdf) | 6 |
-| 5 | Oscar Wilde | [The Soul of Man under Socialism](output/pdf/05_The_Soul_of_Man_under_Socialism.pdf) | 20 |
-| 6 | Adam Smith | [The Wealth of Nations, Book I, Chapters 1-3](output/pdf/06_The_Wealth_of_Nations.pdf) | 10 |
-| 7 | John Stuart Mill | [On Liberty, Chapter II](output/pdf/07_Of_the_Liberty_of_Thought_and_Discussion.pdf) | 23 |
-| 8 | Frederick Douglass | [What to the Slave Is the Fourth of July?](output/pdf/08_What_to_the_Slave_Is_the_Fourth_of_July.pdf) | 17 |
-| 9 | W. E. B. Du Bois | [Of the Dawn of Freedom](output/pdf/09_Of_the_Dawn_of_Freedom.pdf) | 12 |
-| 10 | Edmund Burke | [Speech on Conciliation with America（完整演说）](output/pdf/10_Speech_on_Conciliation_with_America.pdf) | 34 |
+| 1 | George Orwell | [Politics and the English Language](output/pdf/01_Politics_and_the_English_Language.pdf) | 11 |
+| 2 | John Maynard Keynes | [Economic Possibilities for Our Grandchildren](output/pdf/02_Economic_Possibilities_for_Our_Grandchildren.pdf) | 8 |
+| 3 | Thomas Paine | [Agrarian Justice](output/pdf/03_Agrarian_Justice.pdf) | 14 |
+| 4 | Jonathan Swift | [A Modest Proposal](output/pdf/04_A_Modest_Proposal.pdf) | 7 |
+| 5 | Oscar Wilde | [The Soul of Man under Socialism](output/pdf/05_The_Soul_of_Man_under_Socialism.pdf) | 25 |
+| 6 | Adam Smith | [The Wealth of Nations, Book I, Chapters 1-3](output/pdf/06_The_Wealth_of_Nations.pdf) | 13 |
+| 7 | John Stuart Mill | [On Liberty, Chapter II](output/pdf/07_Of_the_Liberty_of_Thought_and_Discussion.pdf) | 29 |
+| 8 | Frederick Douglass | [What to the Slave Is the Fourth of July?](output/pdf/08_What_to_the_Slave_Is_the_Fourth_of_July.pdf) | 20 |
+| 9 | W. E. B. Du Bois | [Of the Dawn of Freedom](output/pdf/09_Of_the_Dawn_of_Freedom.pdf) | 14 |
+| 10 | Edmund Burke | [Speech on Conciliation with America（完整演说）](output/pdf/10_Speech_on_Conciliation_with_America.pdf) | 42 |
 
 十篇均已重新在网上查找可靠版本并核对完整性。伯克原文件只有节选，现已换成完整演说；《国富论》收录第一卷完整前三章，《论自由》收录完整第二章及作者脚注，范围沿用书单。各文章原目录中的十份 PDF 也已直接覆盖为核对后的统一版，旧文件可通过 Git 历史查看。
 
 来源以 Orwell Foundation、The Economics Network、Frederick Douglass Papers Project 和 Project Gutenberg 的全文版本为主。补回了作者原注和杜波依斯章节的乐谱题图，恢复网页转录中可核实的断词、缺字及 OCR 错误，保留原文的斜体强调和历史拼写。逐篇来源、版本范围、下载校验值及正文首尾见[来源核对记录](reading_texts/source_audit.json)，具体编辑原则见[整理与校对说明](reading_texts/EDITORIAL_NOTES.md)。
 
-全部 11 份输出均由 `scripts/build_pdfs.py` 逐页检查：A4 纸张、无空白页、字体全部嵌入、文字不越界、无乱码，并将正文逐段回读核对顺序与完整性；LaTeX 日志同时拦截溢出行和缺字。合订本 151 页另经渲染抽查，目录、金额表、作者注、乐谱、诗歌以及伯克演说的开头与结尾均作放大检查。[构建检查记录](output/pdf/build_report.json)包含排印引擎、页数、目录起始页、字体和 SHA-256。
+全部 11 份输出均由 `scripts/build_pdfs.py` 逐页检查：A4 纸张、无空白页、字体全部嵌入、文字不越界、无乱码，并将正文逐段回读核对顺序与完整性；LaTeX 日志同时拦截溢出行和缺字。过长段落在句末重新划分，只改段落边界，不改动词句，拆分记录见[段落审计](reading_texts/paragraph_audit.json)。合订本 184 页另经渲染抽查，目录、金额表、作者注、乐谱、诗歌以及伯克演说的开头与结尾均作放大检查。[构建检查记录](output/pdf/build_report.json)包含排印引擎、页数、目录起始页、字体和 SHA-256。
 
 ### 重新生成
 
@@ -34,7 +34,7 @@ This is a repository for learning English writing through GPT advice. The main m
 python3 scripts/build_pdfs.py --verify --overwrite-inputs
 ```
 
-脚本会重新生成 `latex/` 下的 XeLaTeX 源码（`preamble.tex`、十篇正文、十份单篇入口及合订本入口），编译十份单篇和合订本，并完成全部检查。系统需安装 TeX Live（含 XeLaTeX、fontspec、hyperref 等常用宏包）、Liberation Serif 字体，以及 Poppler 的 `pdfinfo`、`pdffonts`、`pdftotext`。`--overwrite-inputs` 会同步覆盖各文章原目录中的 PDF；省略该参数则仅更新 `output/pdf/`。可用 `pdftoppm` 将 PDF 渲染为图片进行版面复核。
+脚本会重新生成 `latex/` 下的 XeLaTeX 源码（`preamble.tex`、十篇正文、十份单篇入口及合订本入口），编译十份单篇和合订本，并完成全部检查。若修改了正文并希望重新审计段落，可先运行 `python3 scripts/audit_paragraphs.py --apply`。系统需安装 TeX Live（含 XeLaTeX、fontspec、hyperref 等常用宏包）、Liberation Serif 字体，以及 Poppler 的 `pdfinfo`、`pdffonts`、`pdftotext`。`--overwrite-inputs` 会同步覆盖各文章原目录中的 PDF；省略该参数则仅更新 `output/pdf/`。可用 `pdftoppm` 将 PDF 渲染为图片进行版面复核。
 
 ## 十篇最终书单
 - George Orwell — Politics and the English Language
