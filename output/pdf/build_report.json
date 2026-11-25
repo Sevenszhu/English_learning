@@ -1,0 +1,129 @@
+{
+  "paper": "A4",
+  "body_font": "Liberation Serif, embedded",
+  "body_size_pt": 12,
+  "line_spacing_pt": 16.5,
+  "side_margins_pt": 62,
+  "single_articles": [
+    {
+      "file": "01_Politics_and_the_English_Language.pdf",
+      "pages": 9,
+      "blank_pages": [],
+      "out_of_bounds_pages": [],
+      "complete_text_in_order": true,
+      "sha256": "2a3ec1a636d164879488dc7959fb5296f1449ed19fe2ce60b8195664263d7795",
+      "number": 1,
+      "title": "Politics and the English Language"
+    },
+    {
+      "file": "02_Economic_Possibilities_for_Our_Grandchildren.pdf",
+      "pages": 7,
+      "blank_pages": [],
+      "out_of_bounds_pages": [],
+      "complete_text_in_order": true,
+      "sha256": "2b95c78eb76c52fd64c6971fab4895f483c6eb130452f097b6271862e1438e27",
+      "number": 2,
+      "title": "Economic Possibilities for Our Grandchildren"
+    },
+    {
+      "file": "03_Agrarian_Justice.pdf",
+      "pages": 14,
+      "blank_pages": [],
+      "out_of_bounds_pages": [],
+      "complete_text_in_order": true,
+      "sha256": "73f191cad0b3d80441f37f850f58b6076df88068932d7f698cce5342653e6827",
+      "number": 3,
+      "title": "Agrarian Justice"
+    },
+    {
+      "file": "04_A_Modest_Proposal.pdf",
+      "pages": 6,
+      "blank_pages": [],
+      "out_of_bounds_pages": [],
+      "complete_text_in_order": true,
+      "sha256": "fe6e0d96ffd47885d9084494bd0b81f944737054897d1e9f855d0b340b03fab1",
+      "number": 4,
+      "title": "A Modest Proposal"
+    },
+    {
+      "file": "05_The_Soul_of_Man_under_Socialism.pdf",
+      "pages": 21,
+      "blank_pages": [],
+      "out_of_bounds_pages": [],
+      "complete_text_in_order": true,
+      "sha256": "007d11c533bbc66e3cf4a81413699cf0dd5d19e69b5df940a5c0d8ea4cbb079f",
+      "number": 5,
+      "title": "The Soul of Man under Socialism"
+    },
+    {
+      "file": "06_The_Wealth_of_Nations.pdf",
+      "pages": 11,
+      "blank_pages": [],
+      "out_of_bounds_pages": [],
+      "complete_text_in_order": true,
+      "sha256": "d367a0073754b681557bab10d31330a14a41e3b4738b785b8155d2eb1301d3d8",
+      "number": 6,
+      "title": "The Wealth of Nations"
+    },
+    {
+      "file": "07_Of_the_Liberty_of_Thought_and_Discussion.pdf",
+      "pages": 24,
+      "blank_pages": [],
+      "out_of_bounds_pages": [],
+      "complete_text_in_order": true,
+      "sha256": "0d7a8a0b95c973ef6c0137c397f0a03c7ef9bd6413005fc20e6f914b07e42204",
+      "number": 7,
+      "title": "Of the Liberty of Thought and Discussion"
+    },
+    {
+      "file": "08_What_to_the_Slave_Is_the_Fourth_of_July.pdf",
+      "pages": 17,
+      "blank_pages": [],
+      "out_of_bounds_pages": [],
+      "complete_text_in_order": true,
+      "sha256": "b965ea7b6607d0ff1c8007d3ad953f89803ab5d96e8b38241c3727802bb95df2",
+      "number": 8,
+      "title": "What to the Slave Is the Fourth of July?"
+    },
+    {
+      "file": "09_Of_the_Dawn_of_Freedom.pdf",
+      "pages": 12,
+      "blank_pages": [],
+      "out_of_bounds_pages": [],
+      "complete_text_in_order": true,
+      "sha256": "bb5a2424cc080f24db1b5ed0032767db8ce261369d24332866fe8dc47c6438f0",
+      "number": 9,
+      "title": "Of the Dawn of Freedom"
+    },
+    {
+      "file": "10_Speech_on_Conciliation_with_America.pdf",
+      "pages": 5,
+      "blank_pages": [],
+      "out_of_bounds_pages": [],
+      "complete_text_in_order": true,
+      "sha256": "bf35002157c9baadc2315e17873e6f02fbdb661dfc1f044543487c7492ccc1a2",
+      "number": 10,
+      "title": "Speech on Conciliation with America"
+    }
+  ],
+  "collection": {
+    "file": "English_Writing_Collection.pdf",
+    "pages": 127,
+    "blank_pages": [],
+    "out_of_bounds_pages": [],
+    "complete_text_in_order": true,
+    "sha256": "710904106459330697a8037cbdcb00fa2dd4d496440cac5c8eeb335691b35da7",
+    "article_start_pages": {
+      "1": 2,
+      "2": 11,
+      "3": 18,
+      "4": 32,
+      "5": 38,
+      "6": 59,
+      "7": 70,
+      "8": 94,
+      "9": 111,
+      "10": 123
+    }
+  }
+}
