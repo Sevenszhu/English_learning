@@ -3,13 +3,13 @@
 
 The reviewed UTF-8 text snapshots in ``reading_texts/*.json`` are the source of
 truth.  This script regenerates the LaTeX sources under ``latex/``, compiles ten
-single-article PDFs and the anthology, then audits page size, blank pages,
-embedded fonts, text bounds, text order, hyphenation ligatures and common
-encoding artifacts with Poppler's command-line tools.
+single-article PDFs directly into their original repository folders, then audits
+page size, blank pages, embedded fonts, text bounds, text order, hyphenation
+ligatures and common encoding artifacts with Poppler's command-line tools.
 
 Run from the repository root:
 
-    python3 scripts/build_pdfs.py --verify --overwrite-inputs
+    python3 scripts/build_pdfs.py --verify
 
 Requires XeLaTeX, Liberation Serif, and Poppler (pdfinfo, pdffonts, pdftotext).
 """
@@ -28,7 +28,6 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "output" / "pdf"
 LATEX = ROOT / "latex"
 ARTICLES = LATEX / "articles"
 SINGLES = LATEX / "singles"
@@ -408,53 +407,6 @@ def article_body(item: dict) -> str:
     return "\n\n".join(blocks)
 
 
-def frontmatter(items: list[dict]) -> str:
-    rows = []
-    for item in items:
-        number = item["number"]
-        title = latex_plain(item["title"])
-        author = latex_plain(item["author"])
-        rows.append(
-            r"\hyperref[article-%02d]{\textbf{%02d. %s}}\newline" % (number, number, title)
-            + "\n"
-            + r"{\small\color{headgrey}\hyperref[article-%02d]{%s}}"
-            % (number, author)
-            + "\n"
-            + r"& \hyperref[article-%02d]{\pageref{article-%02d}}\\[6pt]"
-            % (number, number)
-        )
-    row_text = "\n".join(rows)
-    return "\n".join(
-        [
-            r"\setarticlelabel{}",
-            r"\thispagestyle{fancy}",
-            r"\pdfbookmark[0]{Ten Readings for English Writing}{bm-contents}",
-            r"\begingroup\raggedright",
-            r"\setlength{\parindent}{0pt}",
-            r"{\fontsize{24}{30}\selectfont\bfseries Ten Readings\\ for English Writing\par}",
-            r"\vspace{9pt}",
-            r"{\fontsize{12}{18}\selectfont A unified reading edition\par}",
-            r"\vspace{14pt}",
-            r"{\fontsize{14}{19.5}\selectfont\bfseries Contents\par}",
-            r"\vspace{10pt}",
-            r"\endgroup",
-            r"\begingroup",
-            r"\setlength{\parindent}{0pt}",
-            r"\renewcommand{\arraystretch}{1.45}",
-            r"\setlength{\tabcolsep}{0pt}",
-            r"\noindent\begin{tabularx}{\textwidth}{@{}X r@{}}",
-            row_text,
-            r"\end{tabularx}",
-            r"\endgroup",
-            r"\vfill",
-            r"\noindent{\fontsize{9}{12.5}\selectfont\color{headgrey}Scope follows the repository reading list. "
-            r"Smith: Book I, Chapters 1--3. Mill: Chapter II. Burke: the complete speech. "
-            r"Texts have been checked against online editions; sources and corrections are "
-            r"documented in the repository.\par}",
-        ]
-    )
-
-
 def write_latex_sources(items: list[dict]) -> None:
     if len(items) != 10:
         raise ValueError("Expected exactly ten articles")
@@ -477,20 +429,6 @@ def write_latex_sources(items: list[dict]) -> None:
                 ]
             ),
         )
-    write_text(LATEX / "frontmatter.tex", frontmatter(items))
-    collection = [
-        r"\documentclass[12pt,a4paper]{article}",
-        r"\input{preamble}",
-        r"\hypersetup{pdftitle={Ten Readings for English Writing},"
-        r"pdfauthor={Various authors}}",
-        r"\begin{document}",
-        r"\input{frontmatter}",
-    ]
-    for item in items:
-        name = f"{item['number']:02d}_{slug(item['title'])}"
-        collection += [r"\articlebreak", r"\input{articles/%s}" % name]
-    collection.append(r"\end{document}")
-    write_text(LATEX / "collection.tex", "\n".join(collection))
 
 
 # ---------------------------------------------------------------------------
@@ -776,7 +714,7 @@ def verify_pdf(
     }
 
 
-def build() -> None:
+def build() -> tuple[list[dict], list[dict]]:
     items = [
         json.loads(path.read_text(encoding="utf-8"))
         for path in sorted((ROOT / "reading_texts").glob("[0-9][0-9]_*.json"))
@@ -787,31 +725,24 @@ def build() -> None:
 
     shutil.rmtree(BUILD, ignore_errors=True)
     BUILD.mkdir(parents=True, exist_ok=True)
-    OUT.mkdir(parents=True, exist_ok=True)
 
     manifest = []
     for item in items:
         name = f"{item['number']:02d}_{slug(item['title'])}"
-        pdf = compile_tex(f"singles/{name}.tex", passes=1)
-        destination = OUT / f"{name}.pdf"
-        shutil.copyfile(pdf, destination)
+        compiled = compile_tex(f"singles/{name}.tex", passes=1)
+        destination = (ROOT / item["repository_pdf"]).resolve()
+        if ROOT not in destination.parents:
+            raise ValueError("Unexpected repository PDF path")
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(compiled, destination)
         entry = verify_pdf(destination, [item])
-        entry.update({"number": item["number"], "title": item["title"]})
+        entry.update({
+            "number": item["number"],
+            "title": item["title"],
+            "file": item["repository_pdf"],
+        })
         manifest.append(entry)
-        print(f"{destination.name}: {entry['pages']} pages", flush=True)
-
-    collection_pdf = compile_tex("collection.tex", passes=2)
-    collection_destination = OUT / "English_Writing_Collection.pdf"
-    shutil.copyfile(collection_pdf, collection_destination)
-    article_pages = parse_article_pages(BUILD / "collection.aux")
-    if sorted(article_pages) != list(range(1, 11)):
-        raise ValueError(f"Missing article page labels: {article_pages}")
-    combined = verify_pdf(
-        collection_destination, items, article_pages=article_pages, collection=True
-    )
-    combined["article_start_pages"] = article_pages
-    combined["toc_page"] = 1
-    print(f"{collection_destination.name}: {combined['pages']} pages", flush=True)
+        print(f"{item['repository_pdf']}: {entry['pages']} pages", flush=True)
 
     report = {
         "engine": "XeLaTeX (TeX Live 2026)",
@@ -823,21 +754,11 @@ def build() -> None:
         "paragraph_space_pt": 8,
         "side_margins_pt": MARGIN,
         "single_articles": manifest,
-        "collection": combined,
     }
-    (OUT / "build_report.json").write_text(
+    (ROOT / "reading_texts" / "build_report.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     return items, manifest
-
-
-def overwrite_inputs(items: list[dict], manifest: list[dict]) -> None:
-    for item, entry in zip(items, manifest):
-        destination = (ROOT / item["repository_pdf"]).resolve()
-        if ROOT not in destination.parents:
-            raise ValueError("Unexpected repository PDF path")
-        shutil.copyfile(OUT / entry["file"], destination)
-    print("Replaced all ten repository PDFs with verified XeLaTeX editions.")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -850,15 +771,13 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--overwrite-inputs",
         action="store_true",
-        help="Replace the ten repository PDFs with their reading editions",
+        help="Deprecated and ignored; PDFs are written directly to their folders",
     )
     args = parser.parse_args(argv)
     for command in ("xelatex", "pdfinfo", "pdffonts", "pdftotext"):
         if shutil.which(command) is None:
             raise SystemExit(f"Required command not found: {command}")
-    items, manifest = build()
-    if args.overwrite_inputs:
-        overwrite_inputs(items, manifest)
+    build()
     return 0
 
 
