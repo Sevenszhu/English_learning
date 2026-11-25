@@ -154,6 +154,13 @@ BOM/
 # 导出PDF（如果你的PDF是论文/文档，请不要开启）
 # *.pdf
 
+# Generated LaTeX build directory (sources live in latex/).
+build/
+
+# Source image used by the Du Bois chapter.
+!reading_texts/assets/
+!reading_texts/assets/*.jpg
+
 # Reviewed reading PDFs and their validation report are repository artifacts.
 !output/
 output/*
